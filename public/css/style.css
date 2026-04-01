@@ -1,4 +1,6 @@
 @import url("./home.css");
+@import url("./header.css");
+@import url("./404.css");
 
 :root {
     --black-purple: #422F68;

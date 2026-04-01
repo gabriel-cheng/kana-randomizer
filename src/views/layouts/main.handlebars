@@ -4,9 +4,13 @@
     <meta charset="utf-8">
     <title>Kana Randomizer</title>
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="shortcut icon" href="/images/sakura.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/icons/sakura100x100.png" type="image/x-icon">
 </head>
 <body>
+
+    {{#if showHeader}}
+        {{> header}}
+    {{/if}}
 
     {{{body}}}
 

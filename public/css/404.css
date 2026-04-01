@@ -1,0 +1,33 @@
+.p404-title-container h1 {
+    font-size: 3rem;
+    color: var(--common-white);
+}
+
+.p404-button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.p404-button-container button {
+    width: 60%;
+    cursor: pointer;
+    outline: 0;
+    border: none;
+}
+
+.p404-button-container button a {
+    width: 100%;
+    padding: 20px;
+    align-items: center;
+    display: block;
+    color: var(--common-white);
+    background-color: #422f68;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: .1s ease-in;
+}
+
+.p404-button-container button a:hover {
+    background-color: var(--purple-hover);
+    transition: .1s ease-in;
+}

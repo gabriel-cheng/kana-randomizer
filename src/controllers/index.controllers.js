@@ -5,7 +5,9 @@ import getRandomKanaInRange from "../services/randomizerSv.js";
 class IndexController {
 
     index = (req, res) => {
-        return res.render("home");
+        return res.render("home", {
+            showHeader: false
+        });
     }
 
     getRandomCharactersList = (req, res) => {
@@ -29,12 +31,26 @@ class IndexController {
         return res.status(200).json(randomList);
     }
 
-    hiragana = (req, res) => {
-        res.render("alphabets/hiragana");
-    }
+    alphabet = (req, res) => {
+        const { alphabet } = req.params;
+        const alphabetsViews = {
+            hiragana: "alphabets/hiragana",
+            katakana: "alphabets/katakana",
+        }
+        
+        const view = alphabetsViews[alphabet];
 
-    katakana = (req, res) => {
-        res.render("alphabets/katakana");
+        if(!view) {
+            return res.status(404).render("404", {
+                "message": "Página não encontrada!",
+                showHeader: false
+            });
+        }
+
+        res.render(view, {
+            alphabet,
+            showHeader: true
+        });
     }
 
 }
