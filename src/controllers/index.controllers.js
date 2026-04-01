@@ -27,7 +27,15 @@ class IndexController {
         );
 
         return res.status(200).json(randomList);
-    };
+    }
+
+    hiragana = (req, res) => {
+        res.render("alphabets/hiragana");
+    }
+
+    katakana = (req, res) => {
+        res.render("alphabets/katakana");
+    }
 
 }
 

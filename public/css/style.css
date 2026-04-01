@@ -23,6 +23,10 @@
     box-sizing: border-box;
 }
 
+a {
+    text-decoration: none;
+}
+
 html,
 body {
     width: 100%;
@@ -42,4 +46,14 @@ p {
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+}
+
+.fume-container {
+    background-color: rgba(0, 0, 0, 0.425);
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
