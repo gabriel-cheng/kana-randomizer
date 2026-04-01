@@ -91,22 +91,26 @@
     justify-content: center;
 }
 
+
 .box-button-container button {
     width: 80%;
-    height: 50px;
-    background-color: var(--light-purple);
+    cursor: pointer;
     outline: 0;
     border: none;
-    cursor: pointer;
-    border-radius: 20px;
     box-shadow: 1px 0.5px 3px 0.2px var(--black-purple);
-    transition: .2s ease-in;
+    background-color: var(--light-purple);
+    border-radius: 20px;
 }
 
 .box-button-container button a {
+    width: 100%;
+    display: block;
+    padding: 12px;
+    cursor: pointer;
+    transition: .2s ease-in;
+    color: var(--common-white);
     font-size: 1.5rem;
     font-weight: 600;
-    color: var(--common-white);
 }
 
 .box-button-container button:hover {
