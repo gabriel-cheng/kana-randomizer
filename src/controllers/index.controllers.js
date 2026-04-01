@@ -33,23 +33,19 @@ class IndexController {
 
     alphabet = (req, res) => {
         const { alphabet } = req.params;
-        const alphabetsViews = {
-            hiragana: "alphabets/hiragana",
-            katakana: "alphabets/katakana",
-        }
-        
-        const view = alphabetsViews[alphabet];
+        const alphabetsViews = ["hiragana", "katakana"]
 
-        if(!view) {
+        if(!alphabetsViews.includes(alphabet)) {
             return res.status(404).render("404", {
                 "message": "Página não encontrada!",
                 showHeader: false
             });
         }
 
-        res.render(view, {
+        res.render("alphabets/alphabets", {
             alphabet,
-            showHeader: true
+            showHeader: true,
+            alphabet
         });
     }
 
