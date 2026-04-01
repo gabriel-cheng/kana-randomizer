@@ -1,0 +1,45 @@
+@import url("./home.css");
+
+:root {
+    --black-purple: #422F68;
+    --light-purple: #8441BA;
+    --random-purple: #B481C7;
+    --purple-hover: #850fe6; 
+    --sakura-pink: #FE96F2;
+    --common-white: #FEEBF1;
+    --motion-pink: #E5A6E2; 
+}
+
+@font-face {
+  font-family: 'Hoshiro Satsuki';
+  src: url('/fonts/Hoshiko-Satsuki.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100vh;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+.parallax-background {
+    width: 100%;
+    height: 100vh;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}

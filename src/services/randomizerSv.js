@@ -1,4 +1,4 @@
-function getRandomKanaInRange(data, alphabet, start, end) {
+function getRandomKanaInRange(data, alphabet, start, end, quantity) {
     const kanaGroup = data[alphabet];
 
     if (!kanaGroup) {
@@ -25,14 +25,22 @@ function getRandomKanaInRange(data, alphabet, start, end) {
 
     const range = allKana.slice(startIndex, endIndex + 1);
 
-    const shuffled = [...range];
-    for (let i = shuffled.length - 1; i > 0; i--) {
+    const shuffle = (array) => {
+        const shuffled = [...array];
+        for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
+    };
+
+    const result = [];
+
+    for (let i = 0; i < quantity; i++) {
+        result.push(shuffle(range));
     }
 
-    return shuffled;
+    return result;
 }
 
-// console.log(getRandomKanaInRange(hiragana, "hiragana", "あ", "よ"));
 export default getRandomKanaInRange;

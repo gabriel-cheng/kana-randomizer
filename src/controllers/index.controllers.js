@@ -5,13 +5,16 @@ import getRandomKanaInRange from "../services/randomizerSv.js";
 class IndexController {
 
     index = (req, res) => {
-        return res.status(200).json({
-            "message": "Hello, app!"
-        });
+        return res.render("home");
     }
 
     getRandomCharactersList = (req, res) => {
-        const { first_character, last_character, alphabet } = req.body;
+        const { 
+            first_character,
+            last_character,
+            alphabet,
+            quantity
+         } = req.body;
 
         const data = alphabet === "hiragana" ? hiragana : katakana;
 
@@ -19,7 +22,8 @@ class IndexController {
             data,
             alphabet,
             first_character,
-            last_character
+            last_character,
+            quantity
         );
 
         return res.status(200).json(randomList);
