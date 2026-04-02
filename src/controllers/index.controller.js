@@ -1,6 +1,6 @@
 import hiragana from "../data/hiragana.json" with { type: "json"};
 import katakana from "../data/katakana.json" with { type: "json"};
-import getRandomKanaInRange from "../services/randomizerSv.js";
+import getRandomKanaInRange from "../services/randomizer.service.js";
 
 class IndexController {
 
