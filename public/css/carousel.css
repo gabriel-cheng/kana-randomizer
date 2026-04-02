@@ -32,7 +32,7 @@
 
 .swiper {
   width: 100%;
-  max-width: 700px;
+  max-width: 1200px;
   margin: auto;
 }
 
@@ -42,14 +42,16 @@
 }
 
 .char {
-    font-size: 28px;
     margin: 5px;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     background-color: var(--common-white);
-    width: 45px;
-    height: 45px;
+    min-width: 60px;
+    height: 60px;
     border-radius: 5px;
     box-shadow: 0px 0px 8px var(--random-purple);
+    font-size: clamp(16px, 2vw, 28px);
 }
 
 .swiper-button-next:after, .swiper-button-prev:after {
