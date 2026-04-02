@@ -23,18 +23,16 @@
     gap: 30px;
 }
 
-.header-item-item {
+.header-item {
     padding: 15px 23px;
     background-color: var(--sakura-pink);
     transition: .1s ease-in;
+    color: var(--common-white);
+    font-weight: 500;
 }
 
-.header-item-item:hover {
+.header-item:hover {
     padding: 15px 23px;
     background-color: var(--sakura-hover);
     transition: .1s ease-in;
-}
-
-.header-item-item {
-    color: var(--common-white);
 }
