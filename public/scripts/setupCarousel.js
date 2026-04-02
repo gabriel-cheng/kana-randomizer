@@ -40,9 +40,12 @@ function renderCarousel(lists) {
     container.innerHTML = `
         <div class="swiper">
             <div class="swiper-wrapper">
-                ${lists.map(list => `
+                ${lists.map((list, index) => `
                     <div class="swiper-slide">
                         <div class="slide-content">
+                            <p class="carousel-list-index-text">
+                                Lista de caracteres <span>${index + 1}/${lists.length}</span>
+                            </p>
                             ${list.map(char => `<span class="char">${char}</span>`).join("")}
                         </div>
                     </div>

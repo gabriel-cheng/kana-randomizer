@@ -18,6 +18,18 @@
     transition: .1s ease-in;
 }
 
+.carousel-list-index-text {
+    font-size: 2rem;
+    color: var(--common-white);
+    font-weight: 600;
+    text-shadow: -1px 0 var(--hover-purple), 0 1px var(--hover-purple), 1px 0 var(--hover-purple), 0 -1px var(--hover-purple);
+}
+
+.carousel-list-index-text span {
+    color: var(--hover-purple);
+    text-shadow: -1px 0 var(--motion-pink), 0 1px var(--motion-pink), 1px 0 var(--motion-pink), 0 -1px var(--motion-pink);
+}
+
 .swiper {
   width: 100%;
   max-width: 700px;
@@ -51,4 +63,3 @@
 .swiper-button-next, .swiper-button-prev {
     margin-top: calc(-20px - (var(--swiper-navigation-size)/ 2)) !important;
 }
-
