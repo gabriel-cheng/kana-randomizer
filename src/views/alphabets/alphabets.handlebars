@@ -1,5 +1,108 @@
-<main id="katakana-container" class="parallax-background" style="background-image: url('/images/backgrounds/background2.jpg');">
+<link rel="stylesheet" href="/css/carousel.css">
+<link rel="stylesheet" href="/css/alphabet.css">
+<main id="alphabet-container" class="parallax-background" style="background-image: url('/images/backgrounds/background2.jpg');">
     <div class="fume-container">
-        <h1>{{ alphabet }}</h1>
+        {{!-- <h1>{{ alphabet }}</h1> --}}
+        <div class="alphabet-subcontainer">
+            <div class="list-generator-container">
+                <div class="alphabet-title-container">
+                    <h1>Gerar lista de caracteres <span>{{ alphabet }}</span>:</h1>
+                </div>
+                <div class="alphabet-line-container">
+                    <div></div>
+                </div>
+                <div class="alphabet-list-generator-settings-container">
+                    <div class="alphabet-description-container">
+                        <p>Caractere inicial:</p>
+                    </div>
+                    <div class="alphabet-settings-field-container">
+                        <input type="text" name="firstCharacter" id="firstCharacter" placeholder="Ex: {{#if (eq alphabet 'hiragana')}}あ{{else}}ア{{/if}}">
+                    </div>
+                </div>
+                <div class="alphabet-list-generator-settings-container">
+                    <div class="alphabet-description-container">
+                        <p>Caractere final:</p>
+                    </div>
+                    <div class="alphabet-settings-field-container">
+                        <input type="text" name="lastCharacter" id="lastCharacter" placeholder="Ex: {{#if (eq alphabet 'hiragana')}}よ{{else}}ヨ{{/if}}">
+                    </div>
+                </div>
+                <div class="alphabet-list-generator-settings-container">
+                    <div class="alphabet-description-container">
+                        <p>Quantidade de listas:</p>
+                    </div>
+                    <div class="alphabet-settings-field-container">
+                        <input type="number" name="listQuantity" id="listQuantity" min="1" max="10" value="1">
+                    </div>
+                </div>
+                <div class="generate-list-button-container">
+                    <button id="generateBtn">Gerar lista</button>
+                </div>
+            </div>
+            <div class="random-list-container">
+                <div id="carouselContainer" style="display: none;"></div>
+            </div>
+        </div>
     </div>
 </main>
+<script>
+    const firstCharacterElement = document.querySelector("#firstCharacter");
+    const lastCharacterElement = document.querySelector("#lastCharacter");
+    const quantityElement = document.querySelector("#listQuantity");
+    const generateListButtonElement = document.querySelector("#generateBtn");
+
+    const MIN = 1;
+    const MAX = 10;
+
+    generateListButtonElement.disabled = true;
+
+    function getFormData() {
+        return {
+            firstCharacter: firstCharacterElement.value.trim(),
+            lastCharacter: lastCharacterElement.value.trim(),
+            quantity: Number(quantityElement.value),
+            alphabet: "{{alphabet}}"
+        };
+    }
+
+    function validateForm() {
+        const { firstCharacter, lastCharacter, quantity } = getFormData();
+
+        const isValidRange = firstCharacter !== "" && lastCharacter !== "";
+        const isValidQuantity = quantity >= MIN && quantity <= MAX;
+
+        generateListButtonElement.disabled = !(isValidRange && isValidQuantity);
+    }
+
+    firstCharacterElement.addEventListener("input", validateForm);
+    lastCharacterElement.addEventListener("input", validateForm);
+    quantityElement.addEventListener("input", validateForm);
+
+    quantityElement.addEventListener("input", () => {
+        let value = Number(quantityElement.value);
+
+        if (value > MAX) value = MAX;
+        if (value < MIN) value = MIN;
+
+        quantityElement.value = value;
+    });
+
+    generateListButtonElement.addEventListener("click", async() => {
+        if (generateListButtonElement.disabled) return;
+
+        const requestObjectModel = getFormData();
+
+        const response = await fetch("/api/random", {
+            "method": "POST",
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "body": JSON.stringify(requestObjectModel)
+        });
+
+        const responseData = await response.json();
+
+        renderCarousel(responseData);
+    });
+</script>
+<script src="/scripts/setupCarousel.js"></script>

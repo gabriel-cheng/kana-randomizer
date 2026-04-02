@@ -1,3 +1,9 @@
+.p404-items-container {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
 .p404-title-container h1 {
     font-size: 3rem;
     color: var(--common-white);
@@ -28,6 +34,6 @@
 }
 
 .p404-button-container button a:hover {
-    background-color: var(--purple-hover);
+    background-color: var(--hover-purple);
     transition: .1s ease-in;
 }

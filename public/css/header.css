@@ -25,13 +25,13 @@
 
 .header-item-item {
     padding: 15px 23px;
-    background-color: #b481c742;
+    background-color: var(--sakura-pink);
     transition: .1s ease-in;
 }
 
 .header-item-item:hover {
     padding: 15px 23px;
-    background-color: var(--random-purple);
+    background-color: var(--sakura-hover);
     transition: .1s ease-in;
 }
 

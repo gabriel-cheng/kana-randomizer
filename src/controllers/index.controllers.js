@@ -12,8 +12,8 @@ class IndexController {
 
     getRandomCharactersList = (req, res) => {
         const { 
-            first_character,
-            last_character,
+            firstCharacter,
+            lastCharacter,
             alphabet,
             quantity
          } = req.body;
@@ -23,8 +23,8 @@ class IndexController {
         const randomList = getRandomKanaInRange(
             data,
             alphabet,
-            first_character,
-            last_character,
+            firstCharacter,
+            lastCharacter,
             quantity
         );
 

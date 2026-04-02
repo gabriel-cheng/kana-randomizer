@@ -1,20 +1,17 @@
-@import url("./home.css");
-@import url("./header.css");
-@import url("./404.css");
-
 :root {
     --black-purple: #422F68;
     --light-purple: #8441BA;
-    --random-purple: #B481C7;
-    --purple-hover: #850fe6; 
-    --sakura-pink: #FE96F2;
+    --random-purple: #b979d1;
+    --hover-purple: #850fe6; 
+    --sakura-pink: #FF98BF;
+    --sakura-hover: #fb5695;
     --common-white: #FEEBF1;
     --motion-pink: #E5A6E2; 
 }
 
 @font-face {
-  font-family: 'Hoshiro Satsuki';
-  src: url('/fonts/Hoshiko-Satsuki.ttf') format('truetype');
+  font-family: 'Spell of Asia';
+  src: url('/fonts/Spell-of-Asia.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
