@@ -46,24 +46,37 @@ function renderCarousel(lists) {
                             <p class="carousel-list-index-text">
                                 Lista de caracteres <span>${index + 1}/${lists.length}</span>
                             </p>
-                            ${list.map(char => `<span class="char">${char}</span>`).join("")}
+
+                            ${list.map(item => `
+                                <div class="kana-card">
+                                    <div class="kana-card-inner">
+                                        <div class="kana-card-front">
+                                            <span class="kana">${item.char}</span>
+                                        </div>
+                                        <div class="kana-card-back">
+                                            <span class="kana">${item.char}</span>
+                                            <span class="romaji">${item.romaji}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join("")}
                         </div>
                     </div>
                 `).join("")}
             </div>
 
-            <!-- Navegação -->
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
-
-            <!-- Paginação -->
             <div class="swiper-pagination"></div>
         </div>
 
-        <div style="margin-top: 20px; text-align: center;">
+        <div class="carousel-actions">
+            <button id="togglePronunciationBtn">Ver pronúncia</button>
             <button id="newListBtn">Gerar nova lista</button>
         </div>
     `;
+
+    setupActions();
 
     new Swiper(".swiper", {
         loop: lists.length > 1,
@@ -81,4 +94,23 @@ function renderCarousel(lists) {
         container.style.display = "none";
         formContainer.style.display = "flex";
     };
+}
+
+function setupActions() {
+    const toggleBtn = document.getElementById("togglePronunciationBtn");
+    const cards = document.querySelectorAll(".kana-card");
+
+    let flipped = false;
+
+    toggleBtn.addEventListener("click", () => {
+        flipped = !flipped;
+
+        cards.forEach(card => {
+            card.classList.toggle("flipped", flipped);
+        });
+
+        toggleBtn.textContent = flipped
+            ? "Ocultar pronúncia"
+            : "Ver pronúncia";
+    });
 }
