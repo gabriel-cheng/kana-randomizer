@@ -50,6 +50,13 @@
   padding: 50px;
 }
 
+.kana {
+    font-family: "Noto Serif JP", serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+}
+
 .kana-card {
     margin: 5px;
     display: inline-flex;
@@ -104,7 +111,7 @@
 }
 
 .romaji {
-  font-size: 12px;
+  font-size: 14px;
   color: #666;
 }
 
