@@ -76,9 +76,13 @@ function renderCarousel(lists) {
         </div>
     `;
 
-    setupActions();
+    const actions = setupActions(container);
 
-    new Swiper(".swiper", {
+    if (window.mySwiper) {
+        window.mySwiper.destroy(true, true);
+    }
+
+    window.mySwiper = new Swiper(".swiper", {
         loop: lists.length > 1,
         navigation: {
             nextEl: ".swiper-button-next",
@@ -90,22 +94,40 @@ function renderCarousel(lists) {
         }
     });
 
+    window.mySwiper.on("slideChange", () => {
+        actions.resetFlip();
+    });
+
     document.getElementById("newListBtn").onclick = () => {
+        container.innerHTML = "";
         container.style.display = "none";
-        formContainer.style.display = "flex";
+        formContainer.style.display = "";
     };
 }
 
-function setupActions() {
-    const toggleBtn = document.getElementById("togglePronunciationBtn");
-    const cards = document.querySelectorAll(".kana-card");
+function setupActions(container) {
+    const toggleBtn = container.querySelector("#togglePronunciationBtn");
 
     let flipped = false;
+
+    function getCards() {
+        return container.querySelectorAll(".kana-card");
+    }
+
+    function resetFlip() {
+        flipped = false;
+
+        getCards().forEach(card => {
+            card.classList.remove("flipped");
+        });
+
+        toggleBtn.textContent = "Ver pronúncia";
+    }
 
     toggleBtn.addEventListener("click", () => {
         flipped = !flipped;
 
-        cards.forEach(card => {
+        getCards().forEach(card => {
             card.classList.toggle("flipped", flipped);
         });
 
@@ -113,4 +135,6 @@ function setupActions() {
             ? "Ocultar pronúncia"
             : "Ver pronúncia";
     });
+
+    return { resetFlip };
 }
