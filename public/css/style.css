@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Serif+JP:wght@200..900&display=swap');
 
 :root {
+    --responsivity-background-color: rgb(255 255 255 / 26%);
     --black-purple: #422F68;
     --light-purple: #8441BA;
     --random-purple: #b979d1;
@@ -8,7 +9,7 @@
     --sakura-pink: #FF98BF;
     --sakura-hover: #fb5695;
     --common-white: #FEEBF1;
-    --motion-pink: #E5A6E2; 
+    --motion-pink: #E5A6E2;
 }
 
 @font-face {
@@ -57,4 +58,32 @@ p {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+@media (max-width: 1024px) {
+    .parallax-background {
+        background-attachment: scroll;
+    }
+}
+
+@media (max-width: 768px) {
+    html, body {
+        height: auto;
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+
+    .fume-container {
+        height: auto;
+        min-height: 100vh;
+        padding: 20px 16px;
+        overflow-x: hidden;
+    }
+
+    .parallax-background {
+        height: auto;
+        min-height: 100vh;
+        background-attachment: scroll;
+        overflow-x: hidden;
+    }
 }
