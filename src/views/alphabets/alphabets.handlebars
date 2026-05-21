@@ -2,7 +2,6 @@
 <link rel="stylesheet" href="/css/alphabet.css">
 <main id="alphabet-container" class="parallax-background" style="background-image: url('/images/backgrounds/background2.jpg');">
     <div class="fume-container">
-        {{!-- <h1>{{ alphabet }}</h1> --}}
         <div class="alphabet-subcontainer">
             <div class="list-generator-container">
                 <div class="alphabet-title-container">
@@ -81,14 +80,22 @@
     quantityElement.addEventListener("input", () => {
         let value = Number(quantityElement.value);
 
-        if (value > MAX) value = MAX;
-        if (value < MIN) value = MIN;
+        if (value > MAX) quantityElement.value = MAX;
+    });
 
-        quantityElement.value = value;
+    quantityElement.addEventListener("blur", () => {
+        let value = Number(quantityElement.value);
+
+        if (!quantityElement.value || value < MIN) {
+            quantityElement.value = MIN;
+        } else if (value > MAX) {
+            quantityElement.value = MAX;
+        }
+
+        validateForm();
     });
 
     generateListButtonElement.addEventListener("click", async() => {
-        console.log("Aqui!!");
         if (generateListButtonElement.disabled) return;
 
         const requestObjectModel = getFormData();
