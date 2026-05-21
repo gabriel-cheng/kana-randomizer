@@ -46,8 +46,19 @@
 }
 
 .slide-content {
-  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
   padding: 50px;
+}
+
+.slide-content .carousel-list-index-text {
+  width: 100%;
+  display: block;
+  margin-bottom: 12px;
+  text-align: center;
 }
 
 .kana {
@@ -125,4 +136,98 @@
 
 .swiper-button-next, .swiper-button-prev {
     margin-top: calc(-20px - (var(--swiper-navigation-size)/ 2)) !important;
+}
+
+@media (max-width: 1024px) {
+    .swiper {
+        max-width: 90%;
+    }
+
+    #newListBtn,
+    #togglePronunciationBtn {
+        max-width: 320px;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .carousel-actions {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
+
+    #newListBtn,
+    #togglePronunciationBtn {
+        max-width: 100%;
+        width: 90%;
+        height: 46px;
+        font-size: 0.95rem;
+    }
+
+    .carousel-list-index-text {
+        font-size: 1.4rem;
+        padding: 10px 0 6px;
+        width: 100%;
+        display: block;
+    }
+
+    .swiper {
+        max-width: 100%;
+    }
+
+    .swiper-button-prev {
+        left: 4px !important;
+    }
+
+    .swiper-button-next {
+        right: 4px !important;
+    }
+
+    .swiper-button-next:after,
+    .swiper-button-prev:after {
+        font-size: 20px !important;
+    }
+
+    .kana-card {
+        min-width: 50px;
+        width: 50px;
+        height: 50px;
+        margin: 3px;
+        font-size: clamp(14px, 4vw, 22px);
+    }
+
+    .kana {
+        font-size: clamp(14px, 4vw, 22px);
+    }
+
+    .romaji {
+        font-size: 11px;
+    }
+
+    .slide-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+        padding: 50px 25px 25px 25px;
+    }
+}
+
+@media (max-width: 380px) {
+    .kana-card {
+        min-width: 42px;
+        width: 42px;
+        height: 42px;
+        margin: 2px;
+    }
+
+    .kana {
+        font-size: clamp(12px, 4vw, 18px);
+    }
+
+    .carousel-list-index-text {
+        font-size: 1.2rem;
+    }
 }

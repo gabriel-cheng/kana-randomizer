@@ -37,3 +37,31 @@
     background-color: var(--hover-purple);
     transition: .1s ease-in;
 }
+
+@media (max-width: 768px) {
+    .p404-items-container {
+        gap: 30px;
+        padding: 0 16px;
+        width: 100%;
+    }
+
+    .p404-title-container h1 {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .p404-button-container button {
+        width: 90%;
+    }
+
+    .p404-button-container button a {
+        padding: 16px;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .p404-title-container h1 {
+        font-size: 1.6rem;
+    }
+}
