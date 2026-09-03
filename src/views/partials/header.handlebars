@@ -1,12 +1,18 @@
 <link rel="stylesheet" href="/css/header.css">
 <header id="header-container">
     <div class="header-subcontainer">
-        <div class="header-icone">
-            <a href="/" aria-label="Ir para a página inicial">
-                <img src="/images/icons/sakura100x100.png" alt="Kana Randomizer">
-            </a>
-        </div>
-        <nav aria-label="Navegação principal">
+        <a class="header-brand" href="/" aria-label="Ir para a página inicial">
+            <img src="/images/icons/sakura100x100.png" alt="" class="header-logo">
+            <span class="header-brand-text">Kana<span class="header-brand-accent">Randomizer</span></span>
+        </a>
+
+        <button type="button" class="header-toggle" id="headerToggle" aria-expanded="false" aria-controls="headerNav" aria-label="Abrir menu">
+            <span class="header-toggle-bar"></span>
+            <span class="header-toggle-bar"></span>
+            <span class="header-toggle-bar"></span>
+        </button>
+
+        <nav class="header-nav" id="headerNav" aria-label="Navegação principal">
             <ul class="header-list">
                 <li>
                     <a class="header-item" href="/hiragana">Hiragana</a>
@@ -14,14 +20,65 @@
                 <li>
                     <a class="header-item" href="/katakana">Katakana</a>
                 </li>
+                <li>
+                    <button type="button" class="header-item header-item-button" id="openChartModalBtn">
+                        Tabela completa
+                    </button>
+                </li>
             </ul>
         </nav>
     </div>
 </header>
+<div class="header-backdrop" id="headerBackdrop" hidden></div>
 <script>
     (function () {
+        var toggleBtn = document.querySelector("#headerToggle");
+        var nav = document.querySelector("#headerNav");
+        var backdrop = document.querySelector("#headerBackdrop");
+
+        function closeMenu() {
+            nav.classList.remove("header-nav-open");
+            toggleBtn.classList.remove("header-toggle-open");
+            toggleBtn.setAttribute("aria-expanded", "false");
+            backdrop.hidden = true;
+            document.body.classList.remove("no-scroll");
+        }
+
+        function openMenu() {
+            nav.classList.add("header-nav-open");
+            toggleBtn.classList.add("header-toggle-open");
+            toggleBtn.setAttribute("aria-expanded", "true");
+            backdrop.hidden = false;
+            document.body.classList.add("no-scroll");
+        }
+
+        toggleBtn.addEventListener("click", function () {
+            if (nav.classList.contains("header-nav-open")) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        });
+
+        backdrop.addEventListener("click", closeMenu);
+
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape" && nav.classList.contains("header-nav-open")) {
+                closeMenu();
+                toggleBtn.focus();
+            }
+        });
+
+        nav.querySelectorAll(".header-item").forEach(function (item) {
+            item.addEventListener("click", function () {
+                if (window.matchMedia("(max-width: 768px)").matches) {
+                    closeMenu();
+                }
+            });
+        });
+
         var currentPath = window.location.pathname.replace(/\/$/, "") || "/";
-        document.querySelectorAll(".header-item").forEach(function (link) {
+        document.querySelectorAll("a.header-item").forEach(function (link) {
             var linkPath = link.getAttribute("href").replace(/\/$/, "") || "/";
             if (linkPath === currentPath) {
                 link.classList.add("header-item-active");
