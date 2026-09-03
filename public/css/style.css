@@ -12,13 +12,17 @@
     --motion-pink: #E5A6E2;
     --error-red: #ff6b6b;
     --success-green: #6bcf8f;
-    --header-height: 90px;
+    --header-height: 78px;
 }
 
 @media (max-width: 768px) {
     :root {
-        --header-height: 64px;
+        --header-height: 68px;
     }
+}
+
+.no-scroll {
+    overflow: hidden;
 }
 
 @font-face {
@@ -143,7 +147,7 @@ input:focus-visible,
     .fume-container {
         height: auto;
         min-height: 100vh;
-        padding: 20px 16px;
+        padding: calc(var(--header-height) + 20px) 16px 20px;
         overflow-x: hidden;
     }
 

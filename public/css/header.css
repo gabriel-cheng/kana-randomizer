@@ -6,6 +6,10 @@
     display: flex;
     justify-content: center;
     z-index: 999;
+    background-color: rgba(20, 8, 36, 0.35);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(254, 235, 241, 0.12);
 }
 
 .header-subcontainer {
@@ -14,73 +18,207 @@
     justify-content: space-between;
     width: 100%;
     max-width: 1200px;
-    padding: 20px 0;
+    padding: 14px 24px;
 }
 
+/* Marca / logo */
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: opacity .15s ease-in;
+}
+
+.header-brand:hover,
+.header-brand:focus-visible {
+    opacity: 0.85;
+}
+
+.header-logo {
+    width: 40px;
+    height: 40px;
+    display: block;
+}
+
+.header-brand-text {
+    color: var(--common-white);
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+}
+
+.header-brand-accent {
+    color: var(--sakura-pink);
+    font-weight: 500;
+}
+
+/* Navegação (desktop: inline / mobile: painel) */
 .header-list {
     display: flex;
+    align-items: center;
     list-style-type: none;
-    gap: 30px;
+    gap: 14px;
+    margin: 0;
+    padding: 0;
 }
 
 .header-item {
     display: block;
-    padding: 15px 23px;
+    padding: 12px 22px;
     background-color: var(--sakura-pink);
-    transition: background-color .1s ease-in;
+    transition: background-color .15s ease-in, transform .15s ease-in;
     color: var(--common-white);
-    font-weight: 500;
-    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
 }
 
-.header-item:hover {
+.header-item:hover,
+.header-item:focus-visible {
     background-color: var(--sakura-hover);
+}
+
+.header-item:active {
+    transform: scale(0.97);
+}
+
+.header-item-button {
+    background-color: transparent;
+    border: 1.5px solid var(--common-white);
+}
+
+.header-item-button:hover,
+.header-item-button:focus-visible {
+    background-color: var(--hover-purple);
+    border-color: var(--hover-purple);
 }
 
 .header-item-active {
     background-color: var(--black-purple);
-    font-weight: 700;
 }
 
 .header-item-active:hover {
     background-color: var(--black-purple);
 }
 
+/* Botão hamburger (escondido no desktop) */
+.header-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 42px;
+    height: 42px;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.header-toggle:hover,
+.header-toggle:focus-visible {
+    background-color: rgba(254, 235, 241, 0.12);
+}
+
+.header-toggle-bar {
+    width: 22px;
+    height: 2.5px;
+    background-color: var(--common-white);
+    border-radius: 2px;
+    transition: transform .25s ease, opacity .2s ease;
+}
+
+.header-toggle-open .header-toggle-bar:nth-child(1) {
+    transform: translateY(7.5px) rotate(45deg);
+}
+
+.header-toggle-open .header-toggle-bar:nth-child(2) {
+    opacity: 0;
+}
+
+.header-toggle-open .header-toggle-bar:nth-child(3) {
+    transform: translateY(-7.5px) rotate(-45deg);
+}
+
+.header-backdrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(10, 4, 18, 0.55);
+    z-index: 900;
+}
+
 @media (max-width: 1024px) {
     .header-subcontainer {
-        padding: 16px 24px;
+        padding: 14px 24px;
     }
 }
 
 @media (max-width: 768px) {
-    #header-container {
-        background-color: var(--responsivity-background-color);
-        backdrop-filter: blur(8px);
-    }
-
     .header-subcontainer {
         padding: 12px 16px;
-        gap: 12px;
+    }
+
+    .header-brand-text {
+        font-size: 1rem;
+    }
+
+    .header-logo {
+        width: 34px;
+        height: 34px;
+    }
+
+    .header-toggle {
+        display: flex;
+    }
+
+    .header-nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        background-color: rgba(20, 8, 36, 0.97);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(254, 235, 241, 0.12);
+        transition: max-height .25s ease, opacity .2s ease;
+        z-index: 950;
+    }
+
+    .header-nav-open {
+        max-height: 320px;
+        opacity: 1;
     }
 
     .header-list {
-        gap: 8px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 16px;
     }
 
     .header-item {
-        padding: 10px 14px;
-        font-size: 0.9rem;
-    }
-
-    .header-icone img {
-        width: 36px;
-        height: 36px;
+        width: 100%;
+        text-align: center;
+        padding: 14px;
+        font-size: 1rem;
     }
 }
 
 @media (max-width: 380px) {
+    .header-brand-text {
+        font-size: 0.9rem;
+    }
+
     .header-item {
-        padding: 8px 10px;
-        font-size: 0.82rem;
+        font-size: 0.9rem;
     }
 }
