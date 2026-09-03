@@ -2,21 +2,31 @@
 <header id="header-container">
     <div class="header-subcontainer">
         <div class="header-icone">
-            <a href="/">
-                <img src="/images/icons/sakura100x100.png" alt="">
+            <a href="/" aria-label="Ir para a página inicial">
+                <img src="/images/icons/sakura100x100.png" alt="Kana Randomizer">
             </a>
         </div>
-        <ul class="header-list">
-            <a href="/hiragana">
-                <li class="header-item">
-                    Hiragana
+        <nav aria-label="Navegação principal">
+            <ul class="header-list">
+                <li>
+                    <a class="header-item" href="/hiragana">Hiragana</a>
                 </li>
-            </a>
-            <a href="/katakana">
-                <li class="header-item">
-                    Katakana
+                <li>
+                    <a class="header-item" href="/katakana">Katakana</a>
                 </li>
-            </a>
-        </ul>
+            </ul>
+        </nav>
     </div>
 </header>
+<script>
+    (function () {
+        var currentPath = window.location.pathname.replace(/\/$/, "") || "/";
+        document.querySelectorAll(".header-item").forEach(function (link) {
+            var linkPath = link.getAttribute("href").replace(/\/$/, "") || "/";
+            if (linkPath === currentPath) {
+                link.classList.add("header-item-active");
+                link.setAttribute("aria-current", "page");
+            }
+        });
+    })();
+</script>

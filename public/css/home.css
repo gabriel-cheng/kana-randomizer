@@ -46,11 +46,23 @@
 }
 
 .box {
+    display: block;
     background-color: var(--common-white);
     width: 100%;
     max-width: 300px;
     padding: 7px;
     box-shadow: 0px -82px 120px -50px var(--motion-pink) inset;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.box:hover,
+.box:focus-visible {
+    transform: translateY(-6px);
+    box-shadow: 0px -82px 120px -50px var(--motion-pink) inset, 0px 10px 24px -8px rgba(0, 0, 0, 0.45);
+}
+
+.box:active {
+    transform: translateY(-2px);
 }
 
 .box,
@@ -100,36 +112,28 @@
     justify-content: center;
 }
 
-
-.box-button-container button {
+.box-button {
     width: 80%;
-    cursor: pointer;
-    outline: 0;
-    border: none;
+    display: block;
+    padding: 12px;
+    text-align: center;
     box-shadow: 1px 0.5px 3px 0.2px var(--black-purple);
     background-color: var(--light-purple);
     border-radius: 20px;
-}
-
-.box-button-container button a {
-    width: 100%;
-    display: block;
-    padding: 12px;
-    cursor: pointer;
-    transition: .2s ease-in;
     color: var(--common-white);
     font-size: 1.5rem;
     font-weight: 600;
+    transition: background-color .2s ease-in;
 }
 
-.box-button-container button:hover {
+.box:hover .box-button,
+.box:focus-visible .box-button {
     background-color: var(--hover-purple);
-    transition: .2s ease-in;
 }
 
 @media (max-width: 1024px) {
     .home-subcontainer {
-        padding: 80px 24px 40px;
+        padding: calc(var(--header-height) + 10px) 24px 40px;
     }
 
     .box-container {
@@ -143,7 +147,7 @@
 
 @media (max-width: 768px) {
     .home-subcontainer {
-        padding: 90px 16px 40px;
+        padding: calc(var(--header-height) + 16px) 16px 40px;
         gap: 36px;
     }
 
@@ -188,7 +192,7 @@
         font-size: 1.2rem;
     }
 
-    .box-button-container button a {
+    .box-button {
         font-size: 1.2rem;
         padding: 10px;
     }

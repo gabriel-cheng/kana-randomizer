@@ -10,33 +10,47 @@
                 <div class="alphabet-line-container">
                     <div></div>
                 </div>
+
+                <div class="alphabet-presets-container" role="group" aria-label="Intervalos rápidos">
+                    <button type="button" class="preset-chip" data-first="{{#if (eq alphabet 'hiragana')}}あ{{else}}ア{{/if}}" data-last="{{#if (eq alphabet 'hiragana')}}ん{{else}}ン{{/if}}">Tudo</button>
+                    <button type="button" class="preset-chip" data-first="{{#if (eq alphabet 'hiragana')}}あ{{else}}ア{{/if}}" data-last="{{#if (eq alphabet 'hiragana')}}お{{else}}オ{{/if}}">Vogais</button>
+                    <button type="button" class="preset-chip" data-first="{{#if (eq alphabet 'hiragana')}}か{{else}}カ{{/if}}" data-last="{{#if (eq alphabet 'hiragana')}}こ{{else}}コ{{/if}}">Fileira K</button>
+                </div>
+
                 <div class="alphabet-list-generator-settings-container">
                     <div class="alphabet-description-container">
-                        <p>Caractere inicial:</p>
+                        <label for="firstCharacter">Caractere inicial:</label>
                     </div>
                     <div class="alphabet-settings-field-container">
-                        <input type="text" name="firstCharacter" id="firstCharacter" placeholder="Ex: {{#if (eq alphabet 'hiragana')}}あ{{else}}ア{{/if}}">
+                        <input type="text" name="firstCharacter" id="firstCharacter" inputmode="text" autocomplete="off" aria-describedby="firstCharacterError" placeholder="Ex: {{#if (eq alphabet 'hiragana')}}あ{{else}}ア{{/if}}">
+                        <span class="field-error" id="firstCharacterError" aria-live="polite"></span>
                     </div>
                 </div>
                 <div class="alphabet-list-generator-settings-container">
                     <div class="alphabet-description-container">
-                        <p>Caractere final:</p>
+                        <label for="lastCharacter">Caractere final:</label>
                     </div>
                     <div class="alphabet-settings-field-container">
-                        <input type="text" name="lastCharacter" id="lastCharacter" placeholder="Ex: {{#if (eq alphabet 'hiragana')}}よ{{else}}ヨ{{/if}}">
+                        <input type="text" name="lastCharacter" id="lastCharacter" inputmode="text" autocomplete="off" aria-describedby="lastCharacterError" placeholder="Ex: {{#if (eq alphabet 'hiragana')}}よ{{else}}ヨ{{/if}}">
+                        <span class="field-error" id="lastCharacterError" aria-live="polite"></span>
                     </div>
                 </div>
                 <div class="alphabet-list-generator-settings-container">
                     <div class="alphabet-description-container">
-                        <p>Quantidade de listas:</p>
+                        <label for="listQuantity">Quantidade de listas:</label>
                     </div>
-                    <div class="alphabet-settings-field-container">
-                        <input type="number" name="listQuantity" id="listQuantity" min="1" max="10" value="1">
+                    <div class="alphabet-settings-field-container quantity-field-container">
+                        <button type="button" class="quantity-step" id="quantityDown" aria-label="Diminuir quantidade">–</button>
+                        <input type="number" name="listQuantity" id="listQuantity" min="1" max="10" value="1" inputmode="numeric">
+                        <button type="button" class="quantity-step" id="quantityUp" aria-label="Aumentar quantidade">+</button>
                     </div>
                 </div>
                 <div class="generate-list-button-container">
-                    <button id="generateBtn">Gerar lista</button>
+                    <button id="generateBtn">
+                        <span id="generateBtnLabel">Gerar lista</span>
+                    </button>
                 </div>
+                <p class="form-error" id="formError" role="alert"></p>
             </div>
             <div class="random-list-container">
                 <div id="carouselContainer" style="display: none;"></div>
@@ -49,9 +63,20 @@
     const lastCharacterElement = document.querySelector("#lastCharacter");
     const quantityElement = document.querySelector("#listQuantity");
     const generateListButtonElement = document.querySelector("#generateBtn");
+    const generateBtnLabel = document.querySelector("#generateBtnLabel");
+    const firstCharacterError = document.querySelector("#firstCharacterError");
+    const lastCharacterError = document.querySelector("#lastCharacterError");
+    const formError = document.querySelector("#formError");
+    const quantityUpBtn = document.querySelector("#quantityUp");
+    const quantityDownBtn = document.querySelector("#quantityDown");
 
     const MIN = 1;
     const MAX = 10;
+
+    const ALPHABET_RANGES = {
+        hiragana: [0x3041, 0x3096],
+        katakana: [0x30A1, 0x30FA]
+    };
 
     generateListButtonElement.disabled = true;
 
@@ -64,18 +89,69 @@
         };
     }
 
+    function isValidCharacter(char) {
+        if (!char) return true;
+        const range = ALPHABET_RANGES["{{alphabet}}"];
+        if (!range) return true;
+        const code = char.codePointAt(0);
+        return code >= range[0] && code <= range[1];
+    }
+
     function validateForm() {
         const { firstCharacter, lastCharacter, quantity } = getFormData();
+
+        firstCharacterError.textContent = "";
+        lastCharacterError.textContent = "";
+        formError.textContent = "";
+
+        let isValid = true;
+
+        if (firstCharacter !== "" && !isValidCharacter(firstCharacter)) {
+            firstCharacterError.textContent = "Use um caractere {{alphabet}} válido.";
+            isValid = false;
+        }
+
+        if (lastCharacter !== "" && !isValidCharacter(lastCharacter)) {
+            lastCharacterError.textContent = "Use um caractere {{alphabet}} válido.";
+            isValid = false;
+        }
 
         const isValidRange = firstCharacter !== "" && lastCharacter !== "";
         const isValidQuantity = quantity >= MIN && quantity <= MAX;
 
-        generateListButtonElement.disabled = !(isValidRange && isValidQuantity);
+        generateListButtonElement.disabled = !(isValidRange && isValidQuantity && isValid);
     }
 
     firstCharacterElement.addEventListener("input", validateForm);
     lastCharacterElement.addEventListener("input", validateForm);
     quantityElement.addEventListener("input", validateForm);
+
+    [firstCharacterElement, lastCharacterElement].forEach((el) => {
+        el.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" && !generateListButtonElement.disabled) {
+                generateListButtonElement.click();
+            }
+        });
+    });
+
+    document.querySelectorAll(".preset-chip").forEach((chip) => {
+        chip.addEventListener("click", () => {
+            firstCharacterElement.value = chip.dataset.first;
+            lastCharacterElement.value = chip.dataset.last;
+            validateForm();
+            firstCharacterElement.focus();
+        });
+    });
+
+    function stepQuantity(delta) {
+        let value = Number(quantityElement.value) || MIN;
+        value = Math.min(MAX, Math.max(MIN, value + delta));
+        quantityElement.value = value;
+        validateForm();
+    }
+
+    quantityUpBtn.addEventListener("click", () => stepQuantity(1));
+    quantityDownBtn.addEventListener("click", () => stepQuantity(-1));
 
     quantityElement.addEventListener("input", () => {
         let value = Number(quantityElement.value);
@@ -95,22 +171,46 @@
         validateForm();
     });
 
-    generateListButtonElement.addEventListener("click", async() => {
+    function setLoading(isLoading) {
+        generateListButtonElement.disabled = isLoading;
+        generateListButtonElement.classList.toggle("is-loading", isLoading);
+        if (isLoading) {
+            generateBtnLabel.innerHTML = '<span class="spinner" aria-hidden="true"></span>Gerando...';
+        } else {
+            generateBtnLabel.textContent = "Gerar lista";
+        }
+    }
+
+    generateListButtonElement.addEventListener("click", async () => {
         if (generateListButtonElement.disabled) return;
 
+        formError.textContent = "";
         const requestObjectModel = getFormData();
 
-        const response = await fetch("/api/random", {
-            "method": "POST",
-            "headers": {
-                "Content-Type": "application/json"
-            },
-            "body": JSON.stringify(requestObjectModel)
-        });
+        setLoading(true);
 
-        const responseData = await response.json();
+        try {
+            const response = await fetch("/api/random", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(requestObjectModel)
+            });
 
-        renderCarousel(responseData);
+            if (!response.ok) {
+                throw new Error("request-failed");
+            }
+
+            const responseData = await response.json();
+
+            renderCarousel(responseData);
+        } catch (error) {
+            formError.textContent = "Não foi possível gerar a lista agora. Verifique o intervalo escolhido e tente novamente.";
+        } finally {
+            setLoading(false);
+            validateForm();
+        }
     });
 </script>
 <script src="/scripts/setupCarousel.js"></script>

@@ -4,9 +4,24 @@
     gap: 50px;
 }
 
+.p404-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+}
+
 .p404-title-container h1 {
     font-size: 3rem;
     color: var(--common-white);
+}
+
+.p404-subtitle {
+    color: var(--common-white);
+    opacity: 0.85;
+    font-size: 1.1rem;
+    max-width: 480px;
 }
 
 .p404-button-container {
@@ -14,28 +29,23 @@
     justify-content: center;
 }
 
-.p404-button-container button {
+.p404-button {
     width: 60%;
-    cursor: pointer;
-    outline: 0;
-    border: none;
-}
-
-.p404-button-container button a {
-    width: 100%;
     padding: 20px;
-    align-items: center;
+    text-align: center;
     display: block;
     color: var(--common-white);
     background-color: #422f68;
     font-weight: 600;
     font-size: 1rem;
-    transition: .1s ease-in;
+    border-radius: 12px;
+    transition: background-color .15s ease-in, transform .15s ease-in;
 }
 
-.p404-button-container button a:hover {
+.p404-button:hover,
+.p404-button:focus-visible {
     background-color: var(--hover-purple);
-    transition: .1s ease-in;
+    transform: translateY(-2px);
 }
 
 @media (max-width: 768px) {
@@ -50,11 +60,8 @@
         text-align: center;
     }
 
-    .p404-button-container button {
+    .p404-button {
         width: 90%;
-    }
-
-    .p404-button-container button a {
         padding: 16px;
         font-size: 0.95rem;
     }
